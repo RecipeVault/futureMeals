@@ -8,9 +8,7 @@ class Day extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      username: this.props.username,
-      day: this.props.day,
-      savedRecipes: []
+      savedRecipes: this.props.recipeList
       // label: '',
       // image: '',
       // url: '',
@@ -21,23 +19,17 @@ class Day extends Component {
   }
 
   componentDidMount() {
-    console.log('in component did mount')
-    axios.get(`day/${this.state.day}/${this.state.username}`)
-      .then((response) => {
-        console.log(response.data);
-        this.setState({savedRecipes: response.data});
-      });
+
   }
 
   render() {
-    const recipes = this.state.savedRecipes.map((curr, index) => {
-      return <SavedRecipe recipeData={curr} key={index} />
-    });
-
+    console.log('DAY recipes from props:',this.props.recipeList)
+    const recipes = this.props.recipeList.map((ele, index) => {
+      return <SavedRecipe recipeData={ele} key={index} />
+    }) || [];
     return (
-      <div>
-        <h4>{this.props.day}</h4>
-        {recipes}
+      <div className='recipe1'>
+          {this.props.recipeList && recipes}
       </div>
     )
   }

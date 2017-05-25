@@ -52,8 +52,17 @@ recipeController.getRecipes = (req, res, next) => {
                     date: day
                 }
             }).then((recipes) => {
-                console.log("FOUND RECIPES", recipes)
-                res.status(200).send('Recipes found!')
+                let recipeArray = []
+                recipes.forEach((ele) => { recipeArray.push({ '_id': ele.recipe_id }) });
+                Recipe.findAll({
+                    where: {
+                        $or: recipeArray
+                    }
+                }).then((returnedRecipes) => {
+                    let recipesToReturn=[];
+                    returnedRecipes.forEach((ele)=>{recipesToReturn.push(ele.dataValues)});
+                    res.status(200).send(recipesToReturn);
+                })
             })
         })
     }

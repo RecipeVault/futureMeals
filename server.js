@@ -12,11 +12,7 @@ const cookieController = require('./util/cookieController')
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json());
-
 app.use(express.static(path.join(__dirname, 'client/public')));
-
-
-app.use(bodyParser.json());
 
 
 app.post('/login', userController.verifyUser);
@@ -24,6 +20,9 @@ app.post('/signup', userController.checkIfUsernameExists,
                     userController.addToUsersTable);
 app.post('/recipeDisplay', recipeController.saveRecipe);
 app.get('/getRecipes', recipeController.getRecipes);
+app.get('*', (req,res)=>{
+  res.sendFile(path.resolve(__dirname + '/client/public/index.html'));
+})
 
 app.get('*', (req,res)=>{
   res.sendFile(path.resolve(__dirname + '/client/public/index.html'));

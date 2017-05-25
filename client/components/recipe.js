@@ -13,16 +13,18 @@ class Recipe extends Component {
   }
 
   handleDropDownChange(e) {
-    this.setState({day: e.target.value})
+    this.setState({ day: e.target.value })
   }
 
 
   saveToDay(e) {
     e.preventDefault();
-    axios.post('/recipeDisplay', { day: this.state.day, //TEST THIS!!!
-                                   username: this.props.username, //USERNAME MUST BE PASSED DOWN FROM PARENT
-                                   recipe: this.props.recipedata
-                                  })
+    console.log("PROPS USERNAME", this.props.username)
+    axios.post('/recipeDisplay', {
+      day: this.state.day, //TEST THIS!!!
+      username: this.props.username, //USERNAME MUST BE PASSED DOWN FROM PARENT
+      recipe: this.props.recipedata
+    })
       .then(response => {
         console.log(response.data);
       });
@@ -35,16 +37,18 @@ class Recipe extends Component {
     })
     //ingredientLines is an array so wont display properly
     return (
-      <div className="recipePreview">
-        <a href={this.props.recipedata.recipe.url}><img src={this.props.recipedata.recipe.image}/></a>
-        <form onSubmit={this.saveToDay}>
-          <input type="date" name="date" onChange={this.handleDropDownChange}/>
-          <input type="submit" value="Save" />
-        </form>
+      <div className="recipeItem">
+        <div className="recipeImage">
+          <a href={this.props.recipedata.recipe.url}><img src={this.props.recipedata.recipe.image} /></a>
+          <form onSubmit={this.saveToDay}>
+            <input type="date" name="date" onChange={this.handleDropDownChange} />
+            <input type="submit" value="Save" />
+          </form>
+        </div>
         <h3>{this.props.recipedata.recipe.label}</h3>
         <ul>{ingredients}</ul>
         <p>Servings: {this.props.recipedata.recipe.yield}</p>
-        <p>Calories Per Serving: {Math.floor(this.props.recipedata.recipe.calories/this.props.recipedata.recipe.yield)} cal</p>
+        <p>Calories Per Serving: {Math.floor(this.props.recipedata.recipe.calories / this.props.recipedata.recipe.yield)} cal</p>
       </div>
     )
   }

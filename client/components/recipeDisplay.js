@@ -17,12 +17,10 @@ class RecipeDisplay extends Component {
     }
   }
 
-
   handleRecipeChange(e) {
     e.preventDefault();
     this.setState({ [e.target.name]: e.target.value })
   }
-
 
   handleSearchSubmit(e) {
     e.preventDefault();
@@ -52,9 +50,9 @@ class RecipeDisplay extends Component {
 
           return array;
         }
-        response.data.hits=shuffle(response.data.hits);
+        response.data.hits = shuffle(response.data.hits);
         //response.data.hits is an array of first 100 recipe objects (or however many exist).
-        this.setState({ recipes: response.data.hits.slice(0,10) });
+        this.setState({ recipes: response.data.hits.slice(0, 10) });
       })
   }
 
@@ -77,8 +75,11 @@ class RecipeDisplay extends Component {
         </form>
 
         <Link to="/profile" ><button>Profile</button></Link>
-
-        {recipes}
+        <div id='search'>
+          <div className="recipeList">
+            {recipes}
+          </div>
+        </div>
       </div>
     )
   }

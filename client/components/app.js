@@ -18,10 +18,9 @@ class App extends Component {
     this.state = {
       username: '',
       password: '',
-      isAuthenticated: false//change this to false
+      isAuthenticated: false,
     }
     this.handleSignUpSubmit = this.handleSignUpSubmit.bind(this);
-    // this.handleProfileClick = this.handleProfileClick.bind(this);
 
     this.handleLoginSubmit = this.handleLoginSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -81,10 +80,8 @@ class App extends Component {
     return (
       <Router>
         <div>
-          {/* <Route path='/' render={()=>(
-            <Navbar />
-          )} /> */}
-          <Route exact path="/" render={()=> (
+          <Route exact path="/" render={() => (
+
             <div>
               <Navbar />
               <Login
@@ -93,8 +90,8 @@ class App extends Component {
                 handleLoginSubmit={this.handleLoginSubmit}
               />
             </div>
-          )}/>
-          <Route exact path="/signup" render={()=> (
+          )} />
+          <Route exact path="/signup" render={() => (
             <div>
               <Navbar />
               <Signup
@@ -103,8 +100,8 @@ class App extends Component {
                 isAuthenticated={this.state.isAuthenticated}
               />
             </div>
-          )}/>
-          <Route exact path="/profile" render={()=>(
+          )} />
+          <Route exact path="/profile" render={() => (
             this.state.isAuthenticated ?
             (<div>
               <Navbar />
