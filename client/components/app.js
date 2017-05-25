@@ -15,12 +15,11 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      username: '',
+      username: 'brian',
       password: '',
-      isAuthenticated: false,
+      isAuthenticated: true,
     }
     this.handleSignUpSubmit = this.handleSignUpSubmit.bind(this);
-
     this.handleLoginSubmit = this.handleLoginSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
@@ -62,7 +61,7 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <Route exact path="/" render={()=> (
+          <Route exact path="/" render={() => (
             <div>
               <Login
                 handleSignUpClick={this.handleSignUpClick}
@@ -70,8 +69,8 @@ class App extends Component {
                 handleLoginSubmit={this.handleLoginSubmit}
               />
             </div>
-          )}/>
-          <Route exact path="/signup" render={()=> (
+          )} />
+          <Route exact path="/signup" render={() => (
             <div>
               <Signup
                 handleChange={this.handleChange}
@@ -79,35 +78,36 @@ class App extends Component {
                 isAuthenticated={this.state.isAuthenticated}
               />
             </div>
-          )}/>
-          <Route exact path="/profile" render={()=>(
+          )} />
+          <Route exact path="/profile" render={() => (
             this.state.isAuthenticated ?
-            (<div>
-              <Profile
-                username={this.state.username}
-                isAuthenticated={this.state.isAuthenticated}
-              />
-            </div> ): (
+              (<div>
+                <Profile
+                  username={this.state.username}
+                  isAuthenticated={this.state.isAuthenticated}
+                />
+              </div>) : (
                 <Redirect to={{
                   pathname: '/',
-                }}/>
+                }} />
               )
-            )}/>
+          )} />
 
-          <Route exact path="/recipedisplay" render={()=>(
-          this.state.isAuthenticated ?
-          (<div>
-            <RecipeDisplay
-              handleChange={this.handleChange}
-              handleSignUpClick={this.handleSignUpClick}
-              handleLoginSubmit={this.handleLoginSubmit}
-            />
-          </div> ): (
-              <Redirect to={{
-                pathname: '/',
-              }}/>
-            )
-          )}/>
+          <Route exact path="/recipedisplay" render={() => (
+            this.state.isAuthenticated ?
+              (<div>
+                <RecipeDisplay
+                  username={this.state.username}
+                  handleChange={this.handleChange}
+                  handleSignUpClick={this.handleSignUpClick}
+                  handleLoginSubmit={this.handleLoginSubmit}
+                />
+              </div>) : (
+                <Redirect to={{
+                  pathname: '/',
+                }} />
+              )
+          )} />
         </div>
       </Router>
 
